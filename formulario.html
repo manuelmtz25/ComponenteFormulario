@@ -10,22 +10,33 @@
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/css/nifty.min.css">
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/css/theme-unla.css">
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/css/custom-unla.css">
-    <link rel="stylesheet"
-        href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-select/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-select/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/switchery/switchery.min.css">
-    <link rel="stylesheet"
-        href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.css">
 
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/jquery.min.js"></script>
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/bootstrap.min.js"></script>
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/nifty.min.js"></script>
-    <script
-        src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="https://ti.unla.edu.mx/repositoriosii/sweetalert/sweetalert.min.js"></script>
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/switchery/switchery.min.js"></script>
-    <script
-        src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            var elem = document.querySelector('#sw-required');
+            var init = new Switchery(elem);
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello Vue!'
+                }
+            })
+        })        
+    </script>
 
     <style>
         .panel-footer {
@@ -38,44 +49,42 @@
         }
     </style>
 
-    <script>
-        $(document).ready(function(){
-            var elem = document.querySelector('#sw-required');
-            var init = new Switchery(elem);
-        })
-    </script>
+    
 </head>
 
 <body>
 
-    <div id="page-content">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel">
-                    <div class="panel-heading pad-top mar-btm">
-                        <div class="panel-control">
-                            <select data-placeholder="Tipo de pregunta" id="chosen-select" class="selectpicker">                                
-                                <option value="" selected disabled hidden>Tipo de pregunta:</option>
-                                <option value="LinearScale">LinearScale</option>
-                                <option value="Radiobutton">Radiobutton</option>
-                                <option value="Checkbox">Checkbox</option>
-                                <option value="LongAnswer">LongAnswer</option>
-                            </select>
+    <div id="app">
+        <div id="page-content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel">
+                        <div class="panel-heading pad-top mar-btm">
+                            <div class="panel-control">
+                                <select data-placeholder="Tipo de pregunta" id="chosen-select" class="selectpicker">                                
+                                    <option value="" selected disabled hidden>Tipo de pregunta:</option>
+                                    <option value="LinearScale">LinearScale</option>
+                                    <option value="Radiobutton">Radiobutton</option>
+                                    <option value="Checkbox">Checkbox</option>
+                                    <option value="LongAnswer">LongAnswer</option>
+                                </select>
+                            </div>
+                            <h3 class="panel-title">
+                                <input type="text" class="form-control" placeholder="Título de la pregunta...">
+                            </h3>
                         </div>
-                        <h3 class="panel-title">
-                            <input type="text" class="form-control" placeholder="Título de la pregunta...">
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <p class="well">#CONTENIDO</p>
-                        <div class="text-right">Requerido <input id="sw-required" type="checkbox" checked></div>
-                    </div>
-                    <div class="panel-footer text-right">
-                        <button class="btn btn-morado btn-rounded">GUARDAR</button>
-                        
+                        <div class="panel-body">
+                            <p class="well">#CONTENIDO</p>
+                            <div class="text-right">Requerido <input id="sw-required" type="checkbox" checked></div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-morado btn-rounded">GUARDAR</button>
+                            
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div>        
+            {{ message }}
         </div>
     </div>
 
