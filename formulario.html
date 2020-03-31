@@ -24,20 +24,6 @@
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-    <script>
-        $(document).ready(function(){
-            var elem = document.querySelector('#sw-required');
-            var init = new Switchery(elem);
-
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    message: 'Hello Vue!'
-                }
-            })
-        })        
-    </script>
-
     <style>
         .panel-footer {
             border-bottom-right-radius: 15px !important;
@@ -87,6 +73,26 @@
             {{ message }}
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            var elem = document.querySelector('#sw-required');
+            var init = new Switchery(elem);            
+        });
+
+        var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello Vue!'
+                },
+
+                methods:{
+                    getType(){
+                        alert('mma')
+                    }
+                }
+            })
+    </script>
 
 </body>
 
