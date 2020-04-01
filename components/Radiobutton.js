@@ -12,25 +12,32 @@ Vue.component('Radiobutton', {
             this.counter++;                    
         },
 
-        getItems(){
-            this.array=[]
-            var a=this.$children.entries()
-            for(i of a){
-                if(i[1].itemContent!='')
-                    this.array.push(i[1].itemContent)
-            }                    
+        updateItem(value){                    
+            this.array.push(value)
+        },
+
+        dropItem(value){
+            this.array = arrayRemove(this.array, value);
         }
     },
 
     template:`
-    <div>
-        <h1 id="h1">{{title}}</h1>        
-        <button v-on:click="addItem" class="btn btn-default btn-rounded">AGREGAR ITEM</button>
-        <button v-on:click="getItems" class="btn btn-default btn-rounded">OBTENER INFO</button>
-        <div v-for="index in counter">
-            <item></item>
-        </div>        
-        {{array}}
-    </div>
+        <div>
+            <h1 id="h1">{{title}}</h1>        
+            <div class="mar-btm">
+                <button v-on:click="addItem" class="btn btn-default btn-rounded">AGREGAR ITEM</button>
+            </div>       
+
+            <div v-for="index in counter">
+                <item v-on:change-item="updateItem" v-on:delete-item="dropItem"></item>
+            </div>        
+            {{array}}
+        </div>
     `
 })
+
+function arrayRemove(arr, value) { 
+    return arr.filter(function(ele){ 
+        return ele != value; 
+    });
+} 

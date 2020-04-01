@@ -9,7 +9,11 @@ Vue.component('LinearScale', {
         }
     },
     methods:{
-
+        updateDataToParent(){
+            // this.$emit('change-color')
+            // this.$emit('change-color','ff96cb')
+            this.$emit('change-color', this.showPrices ? 'ff96cb' : '3d3d3d')
+        }
     },
     template:`
     <div>
@@ -37,7 +41,7 @@ Vue.component('LinearScale', {
                     Valor máximo:
                 </div>
                 <div>
-                    <select v-model="upperValue" data-placeholder="Tipo de pregunta" id="upper-select" class="selectpicker">
+                    <select v-model="upperValue" v-on:change="updateDataToParent" data-placeholder="Tipo de pregunta" id="upper-select" class="selectpicker">
                         <option value=2 selected>2</option>
                         <option value=3>3</option>
                         <option value=4>4</option>

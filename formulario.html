@@ -85,7 +85,58 @@
     <script src="components/LongAnswer.js"></script>
     <script src="components/Item.js"></script>
 
-    <script src="formulario.js"></script>
+    <!-- <script src="formulario.js"></script> -->
+
+    <script>
+        $(document).ready(function(){
+            var elem = document.querySelector('#sw-required');
+            var init = new Switchery(elem);
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                question:{
+                    title:'',
+                    typeSelected:'',                        
+                    required:true,
+                    LinearScale:{
+                        title: 'LinearScale',
+                        lowerValue: 1,
+                        upperValue: 2,
+                        lowerValueDescription:'',
+                        upperValueDescription:'',
+                    }
+                },
+                jsonData:'',
+                jsonObj:null,                    
+            },
+
+            methods:{
+                getData(){
+                    
+                    var a=this.$children.entries()
+                    for(i of a){
+                        if(i[1].title==this.question.typeSelected)
+                            console.log(i[1].title)                            
+                    }
+
+                    this.jsonData=JSON.stringify(this.question)
+                    this.jsonObj=JSON.parse(this.jsonData)
+                },
+            },
+
+            computed:{
+                information(){
+                    return `
+                        ${this.question.title}
+                        ${this.question.typeSelected}
+                        ${this.question.required}                        
+                    `
+                }
+            }
+        })
+    </script>
 
 </body>
 
