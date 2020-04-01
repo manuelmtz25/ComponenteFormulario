@@ -61,10 +61,10 @@
                         </div>
                         <div class="panel-body">
                             <div class="well">#CONTENIDO                                
-                                <linear-scale v-show="question.typeSelected==='LinearScale'" v-on:change-parent-data="updateLinearScale"></linear-scale>
-                                <radiobutton v-show="question.typeSelected==='Radiobutton'"></radiobutton>
-                                <checkbox v-show="question.typeSelected==='Checkbox'"></checkbox>
-                                <long-answer  v-show="question.typeSelected==='LongAnswer'"></long-answer>
+                                <linear-scale v-show="question.typeSelected==='LinearScale'" v-on:change-parent-linearscale="updateLinearScale"></linear-scale>
+                                <radiobutton v-show="question.typeSelected==='Radiobutton'" v-on:change-parent-radio="updateRadiobutton"></radiobutton>
+                                <checkbox v-show="question.typeSelected==='Checkbox'" v-on:change-parent-checkbox="updateCheckbox"></checkbox>
+                                <long-answer  v-show="question.typeSelected==='LongAnswer'" v-on:change-parent-longanswer="updateLongAnswer"></long-answer>
                             </div>
                             <div class="text-right">Requerido <input v-model="question.required" id="sw-required" type="checkbox" checked></div>
                         </div>
@@ -107,7 +107,20 @@
                         lowerValueDescription:'',
                         upperValueDescription:'',
                     },
-                    
+                    Radiobutton:{
+                        title: 'Radiobutton',
+                        counter: 1,
+                        array:[]
+                    },
+                    Checkbox:{
+                        title: 'Checkbox',
+                        counter: 1,
+                        array:[]
+                    },
+                    LongAnswer:{
+                        title: 'LongAnswer',
+                        placeholder:''
+                    }
                 },
                 jsonData:'',
                 jsonObj:null,                    
@@ -127,6 +140,18 @@
                 },
                 updateLinearScale(value){
                     this.question.LinearScale=value
+                },
+                updateRadiobutton(value){
+                    this.question.Radiobutton=value
+
+                },
+                updateCheckbox(value){
+                    this.question.Checkbox=value
+
+                },
+                updateLongAnswer(value){
+                    this.question.LongAnswer=value
+
                 }
             },
 

@@ -12,7 +12,7 @@ Vue.component('LinearScale', {
     },
     methods:{
         updateDataToParent(){
-            this.$emit('change-parent-data', this.details)
+            this.$emit('change-parent-linearscale', this.details)
         }
     },
     template:`

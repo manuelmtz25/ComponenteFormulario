@@ -1,18 +1,24 @@
 Vue.component('LongAnswer', {
     data() {
         return {
-            title: 'LongAnswer',
-            placeholder:''
+            details:{
+                title: 'LongAnswer',
+                placeholder:''
+            }
+            
         }
     },
     methods:{
+        updateDataToParent(){
+            this.$emit('change-parent-longanswer', this.details)
+        }
 
     },
     template:`
     <div>
-        <h1 id="h1">{{title}}</h1>
-        <input v-model="placeholder" type="text" class="form-control" placeholder="Texto informativo">
-        {{placeholder}}
+        <h1 id="h1">{{details.title}}</h1>
+        <input v-model="details.placeholder" v-on:change="updateDataToParent" type="text" class="form-control" placeholder="Texto informativo">
+        {{details.placeholder}}
     </div>
     `
 })
