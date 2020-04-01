@@ -61,7 +61,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="well">#CONTENIDO                                
-                                <linear-scale v-show="question.typeSelected==='LinearScale'"></linear-scale>
+                                <linear-scale v-show="question.typeSelected==='LinearScale'" v-on:change-parent-data="updateLinearScale"></linear-scale>
                                 <radiobutton v-show="question.typeSelected==='Radiobutton'"></radiobutton>
                                 <checkbox v-show="question.typeSelected==='Checkbox'"></checkbox>
                                 <long-answer  v-show="question.typeSelected==='LongAnswer'"></long-answer>
@@ -106,7 +106,8 @@
                         upperValue: 2,
                         lowerValueDescription:'',
                         upperValueDescription:'',
-                    }
+                    },
+                    
                 },
                 jsonData:'',
                 jsonObj:null,                    
@@ -124,15 +125,14 @@
                     this.jsonData=JSON.stringify(this.question)
                     this.jsonObj=JSON.parse(this.jsonData)
                 },
+                updateLinearScale(value){
+                    this.question.LinearScale=value
+                }
             },
 
             computed:{
                 information(){
-                    return `
-                        ${this.question.title}
-                        ${this.question.typeSelected}
-                        ${this.question.required}                        
-                    `
+                    return JSON.stringify(this.question)                    
                 }
             }
         })

@@ -1,23 +1,23 @@
 Vue.component('LinearScale', {
     data(){
         return{
-            title: 'LinearScale',
-            lowerValue: 1,
-            upperValue: 2,
-            lowerValueDescription:'',
-            upperValueDescription:'',
+            details:{
+                title: 'LinearScale',
+                lowerValue: 1,
+                upperValue: 2,
+                lowerValueDescription:'',
+                upperValueDescription:'',
+            }            
         }
     },
     methods:{
         updateDataToParent(){
-            // this.$emit('change-color')
-            // this.$emit('change-color','ff96cb')
-            this.$emit('change-color', this.showPrices ? 'ff96cb' : '3d3d3d')
+            this.$emit('change-parent-data', this.details)
         }
     },
     template:`
     <div>
-        <h1 id="h1">{{title}}</h1>
+        <h1 id="h1">{{details.title}}</h1>
 
         <div class="row">
             <div class="col-md-6">
@@ -25,15 +25,15 @@ Vue.component('LinearScale', {
                     Valor mínimo:
                 </div>
                 <div>
-                    <select v-model="lowerValue" data-placeholder="Tipo de pregunta" id="lower-select" class="selectpicker">
+                    <select v-model="details.lowerValue" v-on:change="updateDataToParent" data-placeholder="Tipo de pregunta" id="lower-select" class="selectpicker">
                         <option value=1 selected disabled>1</option>
                     </select>
                 </div>
                 <div>                    
-                    <input v-model="lowerValueDescription" type="text" class="form-control" placeholder="Etiqueta de valor mínimo">                    
+                    <input v-model="details.lowerValueDescription" v-on:change="updateDataToParent" type="text" class="form-control" placeholder="Etiqueta de valor mínimo">                    
                 </div>
                 <div>
-                    {{lowerValue}} : {{lowerValueDescription}}
+                    {{details.lowerValue}} : {{details.lowerValueDescription}}
                 </div>
             </div>
             <div class="col-md-6">
@@ -41,7 +41,7 @@ Vue.component('LinearScale', {
                     Valor máximo:
                 </div>
                 <div>
-                    <select v-model="upperValue" v-on:change="updateDataToParent" data-placeholder="Tipo de pregunta" id="upper-select" class="selectpicker">
+                    <select v-model="details.upperValue" v-on:change="updateDataToParent" data-placeholder="Tipo de pregunta" id="upper-select" class="selectpicker">
                         <option value=2 selected>2</option>
                         <option value=3>3</option>
                         <option value=4>4</option>
@@ -54,10 +54,10 @@ Vue.component('LinearScale', {
                     </select>
                 </div>
                 <div>                    
-                    <input v-model="upperValueDescription" type="text" class="form-control" placeholder="Etiqueta de valor máximo">
+                    <input v-model="details.upperValueDescription" v-on:change="updateDataToParent" type="text" class="form-control" placeholder="Etiqueta de valor máximo">
                 </div>
                 <div>
-                    {{upperValue}} : {{upperValueDescription}}
+                    {{details.upperValue}} : {{details.upperValueDescription}}
                 </div>
             </div>
         </div>
