@@ -6,21 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/css/nifty.min.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/css/theme-unla.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/css/custom-unla.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-select/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/sweetalert/sweetalert.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/switchery/switchery.min.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.css">
+
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/jquery.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/bootstrap.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/nifty.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/sweetalert/sweetalert.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/switchery/switchery.min.js"></script>
+    <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 
 <body>
     <div id="app">
-        <h1 id="h1">{{title}}</h1>        
+        <h1 id="h1">{{title}}</h1>
+        <input v-model="placeholder" type="text" class="form-control" placeholder="Texto informativo">
+        {{placeholder}}
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     
     <script>        
         const app = new Vue({
             el: '#app',
             data() {
                 return {
-                    title: 'LongAnswer'
+                    title: 'LongAnswer',
+                    placeholder:''
                 }
             }
         })
