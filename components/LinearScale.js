@@ -21,7 +21,7 @@ Vue.component('LinearScale', {
                     Valor mínimo:
                 </div>
                 <div>
-                    <select v-model="lowerValue" data-placeholder="Tipo de pregunta" id="upper-select" class="selectpicker">
+                    <select v-model="lowerValue" data-placeholder="Tipo de pregunta" id="lower-select" class="selectpicker">
                         <option value=1 selected disabled>1</option>
                     </select>
                 </div>
