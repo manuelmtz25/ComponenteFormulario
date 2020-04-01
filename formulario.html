@@ -47,7 +47,7 @@
                     <div class="panel">
                         <div class="panel-heading pad-top mar-btm">
                             <div class="panel-control">
-                                <select v-model="question.typeSelected" v-on:change="changeType" data-placeholder="Tipo de pregunta" id="chosen-select" class="selectpicker">                                
+                                <select v-model="question.typeSelected" data-placeholder="Tipo de pregunta" id="chosen-select" class="selectpicker">                                
                                     <option value="" selected disabled hidden>Tipo de pregunta:</option>
                                     <option value="LinearScale">LinearScale</option>
                                     <option value="Radiobutton">Radiobutton</option>
@@ -70,7 +70,6 @@
                         </div>
                         <div class="panel-footer text-right">
                             <button v-on:click="getData" class="btn btn-morado btn-rounded">GUARDAR</button>
-                            
                         </div>
                     </div>
                 </div>
@@ -138,7 +137,7 @@
                             </select>
                         </div>
                         <div>                    
-                            <input v-model="upperValueDescription" type="text" class="form-control" placeholder="Etiqueta de valor máximo">                    
+                            <input v-model="upperValueDescription" type="text" class="form-control" placeholder="Etiqueta de valor máximo">
                         </div>
                         <div>
                             {{upperValue}} : {{upperValueDescription}}
@@ -150,18 +149,39 @@
         })
 
         Vue.component('Radiobutton', {
-            data(){
-                return{
-
+            data() {
+                return {
+                    title: 'Radiobutton',
+                    counter: 1,
+                    array:[]                 
                 }
             },
-            methods:{
 
+            methods:{
+                addItem(){
+                    this.counter++;                    
+                },
+
+                getItems(){
+                    this.array=[]
+                    var a=this.$children.entries()
+                    for(i of a){
+                        if(i[1].itemContent!='')
+                            this.array.push(i[1].itemContent)
+                    }                    
+                }
             },
+
             template:`
-                <div>
-                    <p>Radiobutton</p>
-                </div>
+            <div>
+                <h1 id="h1">{{title}}</h1>        
+                <button v-on:click="addItem" class="btn btn-default btn-rounded">AGREGAR ITEM</button>
+                <button v-on:click="getItems" class="btn btn-default btn-rounded">OBTENER INFO</button>
+                <div v-for="index in counter">
+                    <item></item>
+                </div>        
+                {{array}}
+            </div>
             `
         })
 
@@ -197,6 +217,22 @@
             `
         })
 
+        Vue.component('item', {
+            data(){
+                return{
+                    itemContent:''
+                }
+            },
+            methods:{
+                
+            },
+            template:`
+                <div>
+                    <input v-model="itemContent" type="text" class="form-control" placeholder="Item component...">
+                </div>
+            `
+        })
+
         var app = new Vue({
             el: '#app',
             data: {
@@ -215,10 +251,11 @@
                     this.jsonObj=JSON.parse(this.jsonData)
                 },
 
-                changeType(){
+                //v-on:change="changeType"
+                //changeType(){
                     // alert('ok')
-                    this.message = '<p style="color:red;">New Message</p>';
-                }
+                    //this.message = '<p style="color:red;">New Message</p>';
+                //}
             },
 
             computed:{
