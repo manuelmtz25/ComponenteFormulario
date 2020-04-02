@@ -69,7 +69,7 @@
                             <div class="text-right">Requerido <input v-model="question.required" id="sw-required" type="checkbox" checked></div>
                         </div>
                         <div class="panel-footer text-right">
-                            <button v-on:click="getData" class="btn btn-morado btn-rounded">GUARDAR</button>
+                            <button v-on:click="submitData" class="btn btn-morado btn-rounded">GUARDAR</button>
                         </div>
                     </div>
                 </div>
@@ -112,6 +112,8 @@
     <!-- <script src="formulario.js"></script> -->
 
     <script>
+        const url = 'http://sii.unla.edu.mx/FormulariosUNLA/Forms/Questions'
+
         $(document).ready(function(){
             var elem = document.querySelector('#sw-required');
             var init = new Switchery(elem);
@@ -151,18 +153,41 @@
                 result:[]             
             },
 
-            created() {
-                const url = 'http://sii.unla.edu.mx/FormulariosUNLA/Forms/Questions'
-
-                fetch(`${url}/GetQuestions`)
-                    .then(res => res.json())
-                    .then(res => this.result=res)
-
-                
+            created() {                
+                this.refresh()
             },
 
             methods:{
-                getData(){
+                submitData(event){
+                    
+                    event.preventDefault();
+
+                    $.ajax({
+                        type: "POST",
+                        url: `${url}/InsertQuestion`,
+                        data: this.question,
+                        success: function (result, status, xhr) {
+                            console.log(result)
+                            app.refresh()
+
+                            // if (result.includes("Error")) {
+                            //     msgAlert(result, "danger");
+                            // } else {
+                            //     console.log(result)
+                            //     // refresh()
+                            //     // appPerfiles.perfil = {
+                            //     //     nombre: '',
+                            //     //     costo: '',
+                            //     //     grupo: ''
+                            //     // };
+                            //     // appPerfiles.refresh();
+                            // }
+                        },
+                        error: function (xhr, status, error) {
+                            var msg = '<span class="text-bold">' + error + '</span><br/>Estatus: ' + xhr.status + '<br/>Descripción: ' + xhr.statusText;
+                            msgAlert(msg, "danger");
+                        }
+                    });
                     
                     var a=this.$children.entries()
                     for(i of a){
@@ -187,6 +212,11 @@
                 updateLongAnswer(value){
                     this.question.LongAnswer=value
 
+                },
+                refresh(){
+                    fetch(`${url}/GetQuestions`)
+                        .then(res => res.json())
+                        .then(res => this.result=res)
                 }
             },
 
