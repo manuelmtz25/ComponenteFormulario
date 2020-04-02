@@ -82,11 +82,13 @@
                 <div class="list-group">
                     <li v-for="item in result" class="list-group-item">
                         <div>
-                            <!-- <span class="pull-right text-bold">
-                                <button v-show="showRemoveElement" v-on:click="removeElement(perfil.Id)" class="btn btn-dark btn-xs btn-circle">
-                                    <i class="fa fa-close"></i>
+                            <span class="pull-right text-bold">
+                                <button v-on:click="removeElement(item.Id)" class="btn btn-dark btn-xs btn-rounded">
+                                    <!-- <i class="fa fa-close"></i> -->
+                                    <!-- &nbsp;&nbsp;X&nbsp;&nbsp; -->
+                                    BORRAR
                                 </button>
-                            </span> -->
+                            </span>
                             <!-- <div v-on:click="refrescarEstudios(perfil.Id)">
                                 <h5 class="list-group-item-heading">{{perfil.Nombre}} <span class="text-thin">($ {{perfil.Costo}})</span></h5>
                                 <em>{{perfil.Grupo}}</em>
@@ -168,6 +170,7 @@
                         data: this.question,
                         success: function (result, status, xhr) {
                             console.log(result)
+                            console.log('Guardado...')
                             app.refresh()
 
                             // if (result.includes("Error")) {
@@ -217,7 +220,27 @@
                     fetch(`${url}/GetQuestions`)
                         .then(res => res.json())
                         .then(res => this.result=res)
-                }
+                },
+                removeElement(value) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: `${url}/DeleteQuestion`,
+                        data: { value },
+                        success: function (result, status, xhr) {
+                            console.log('Borrado...')
+                            app.refresh()                            
+                        },
+                        error: function (xhr, status, error) {
+                            var msg = '<span class="text-bold">' +
+                                error +
+                                '</span><br/>Estatus: ' +
+                                xhr.status +
+                                '<br/>Descripción: ' +
+                                xhr.statusText;
+                            msgAlert(msg, "danger");
+                        }
+                    });
+                },
             },
 
             computed:{
