@@ -221,11 +221,11 @@
                         .then(res => res.json())
                         .then(res => this.result=res)
                 },
-                removeElement(value) {
+                removeElement(id) {
                     $.ajax({
-                        type: "DELETE",
+                        type: "POST",
                         url: `${url}/DeleteQuestion`,
-                        data: { value },
+                        data: { id },
                         success: function (result, status, xhr) {
                             console.log('Borrado...')
                             app.refresh()                            
