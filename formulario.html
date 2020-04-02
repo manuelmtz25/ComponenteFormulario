@@ -74,8 +74,32 @@
                     </div>
                 </div>
             </div>  
+
             <p>{{ information }}</p>          
-            <p>{{ jsonData }}</p>            
+            <p>{{ jsonData }}</p> 
+
+            <div class="row">
+                <div class="list-group">
+                    <li v-for="item in result" class="list-group-item">
+                        <div>
+                            <!-- <span class="pull-right text-bold">
+                                <button v-show="showRemoveElement" v-on:click="removeElement(perfil.Id)" class="btn btn-dark btn-xs btn-circle">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                            </span> -->
+                            <!-- <div v-on:click="refrescarEstudios(perfil.Id)">
+                                <h5 class="list-group-item-heading">{{perfil.Nombre}} <span class="text-thin">($ {{perfil.Costo}})</span></h5>
+                                <em>{{perfil.Grupo}}</em>
+                            </div> -->
+                            <div>
+                                <h5 class="list-group-item-heading">{{item.Title}} <span class="text-thin">({{item.Id}})</span></h5>
+                                <em>{{item.Type}}</em>
+                            </div>
+                        </div>
+            
+                    </li>
+                </div>
+            </div>        
         </div>
     </div>
     
@@ -123,7 +147,18 @@
                     }
                 },
                 jsonData:'',
-                jsonObj:null,                    
+                jsonObj:null, 
+                result:[]             
+            },
+
+            created() {
+                const url = 'http://sii.unla.edu.mx/FormulariosUNLA/Forms/Questions'
+
+                fetch(`${url}/GetQuestions`)
+                    .then(res => res.json())
+                    .then(res => this.result=res)
+
+                
             },
 
             methods:{
