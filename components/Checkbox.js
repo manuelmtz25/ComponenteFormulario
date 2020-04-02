@@ -4,7 +4,7 @@ Vue.component('Checkbox', {
             details:{
                 title: 'Checkbox',
                 counter: 1,
-                array:[]
+                items:[]
             }            
         }
     },
@@ -15,12 +15,12 @@ Vue.component('Checkbox', {
         },
 
         updateItem(value){                    
-            this.details.array.push(value)
+            this.details.items.push(value)
             this.$emit('change-parent-checkbox', this.details)
         },
 
         dropItem(value){
-            this.details.array = arrayRemove(this.details.array, value);
+            this.details.items = itemsRemove(this.details.items, value);
         },    },
 
     template:`
@@ -33,12 +33,12 @@ Vue.component('Checkbox', {
             <div v-for="index in details.counter">
                 <item v-on:change-item="updateItem" v-on:delete-item="dropItem"></item>
             </div>        
-            {{details.array}}
+            {{details.items}}
         </div>
     `
 })
 
-function arrayRemove(arr, value) { 
+function itemsRemove(arr, value) { 
     return arr.filter(function(ele){ 
         return ele != value; 
     });
