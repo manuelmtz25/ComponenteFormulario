@@ -235,24 +235,9 @@
                                 app.refresh()
                                 app.question.title=""
                                 msgAlert('Pregunta guardada correctamente', 'success')
-
-                                //TODO validar cuando responda con un error
-                                // if (result.includes("Error")) {
-                                //     msgAlert(result, "danger");
-                                // } else {
-                                //     console.log(result)
-                                //     // refresh()
-                                //     // appPerfiles.perfil = {
-                                //     //     nombre: '',
-                                //     //     costo: '',
-                                //     //     grupo: ''
-                                //     // };
-                                //     // appPerfiles.refresh();
-                                // }
                             },
                             error: function (xhr, status, error) {
-                                var msg = '<span class="text-bold">' + error + '</span><br/>Estatus: ' + xhr.status + '<br/>Descripción: ' + xhr.statusText;
-                                msgAlert(msg, "danger");
+                                msgAlert('Error al guardar la pregunta: '+error, 'error')
                             }
                         });                        
                     }                   
@@ -301,13 +286,7 @@
                             msgAlert('Pregunta borrada correctamente', 'success')                          
                         },
                         error: function (xhr, status, error) {
-                            var msg = '<span class="text-bold">' +
-                                error +
-                                '</span><br/>Estatus: ' +
-                                xhr.status +
-                                '<br/>Descripción: ' +
-                                xhr.statusText;
-                            msgAlert(msg, "danger");
+                            msgAlert('Error al borrar la pregunta: '+error, 'error')
                         }
                     });
                 },
