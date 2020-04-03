@@ -21,7 +21,8 @@ Vue.component('Radiobutton', {
 
         dropItem(value){
             this.details.items = itemsRemove(this.details.items, value);
-        },    },
+        },    
+    },
 
     template:`
         <div>
