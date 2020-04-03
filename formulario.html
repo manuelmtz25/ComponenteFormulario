@@ -61,7 +61,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <div class="well">
+                            <div class="well bord-no">
                                 <em v-if="question.typeSelected==''">-No ha seleccionado ningún tipo de pregunta-</em>
                                 <linear-scale v-show="question.typeSelected==='LinearScale'" v-on:change-parent-linearscale="updateLinearScale"></linear-scale>
                                 <radiobutton v-show="question.typeSelected==='Radiobutton'" v-on:change-parent-radio="updateRadiobutton"></radiobutton>
