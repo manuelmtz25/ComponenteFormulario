@@ -17,7 +17,7 @@ Vue.component('LinearScale', {
     },
     template:`
     <div>
-        <h2>{{details.title}}</h2>
+        <h2 class="mar-no pad-btm">{{details.title}}</h2>
 
         <div class="row">
             <div class="col-md-6">

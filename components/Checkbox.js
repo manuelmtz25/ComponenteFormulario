@@ -25,7 +25,7 @@ Vue.component('Checkbox', {
 
     template:`
         <div>
-            <h2>{{details.title}}</h2>
+            <h2 class="mar-no pad-btm">{{details.title}}</h2>
             <div class="mar-btm">
                 <button v-on:click="addItem" class="btn btn-default btn-rounded">NUEVA OPCIÓN</button>
             </div>       
