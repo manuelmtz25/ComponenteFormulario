@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-select/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/sweetalert/sweetalert.css">
     <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/switchery/switchery.min.css">
-    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.css">
+    <link rel="stylesheet" href="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.css">    
 
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/jquery.min.js"></script>
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/js/bootstrap.min.js"></script>
@@ -23,6 +23,7 @@
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/switchery/switchery.min.js"></script>
     <script src="https://ti.unla.edu.mx/repositoriosii/Nifty_2.9.1/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="notify.js"></script>
 
     <style>
         .panel-footer {
@@ -166,10 +167,12 @@
                         title: 'LongAnswer',
                         placeholder:''
                     }
-                },
-                jsonData:'',
-                jsonObj:null, 
-                result:[]             
+                },                
+                result:[],
+                errors: [],
+
+                // jsonData:'',
+                // jsonObj:null, 
             },
 
             created() {                
@@ -178,46 +181,96 @@
 
             methods:{
                 submitData(event){
-                    //TODO validar que los datos estén llenos
-                    event.preventDefault();
+                    this.errors = [];
 
-                    $.ajax({
-                        type: "POST",
-                        url: `${url}/InsertQuestion`,
-                        data: this.question,
-                        success: function (result, status, xhr) {
-                            console.log(result)
-                            console.log('Guardado...')
-                            app.refresh()
-
-                            //TODO validar cuando responda con un error
-                            // if (result.includes("Error")) {
-                            //     msgAlert(result, "danger");
-                            // } else {
-                            //     console.log(result)
-                            //     // refresh()
-                            //     // appPerfiles.perfil = {
-                            //     //     nombre: '',
-                            //     //     costo: '',
-                            //     //     grupo: ''
-                            //     // };
-                            //     // appPerfiles.refresh();
-                            // }
-                        },
-                        error: function (xhr, status, error) {
-                            var msg = '<span class="text-bold">' + error + '</span><br/>Estatus: ' + xhr.status + '<br/>Descripción: ' + xhr.statusText;
-                            msgAlert(msg, "danger");
-                        }
-                    });
-                    
-                    var a=this.$children.entries()
-                    for(i of a){
-                        if(i[1].title==this.question.typeSelected)
-                            console.log(i[1].title)                            
+                    if (!this.question.title) {
+                        this.errors.push('"Título de la pregunta" requerido.');
+                    }
+                    if (!this.question.typeSelected) {
+                        this.errors.push('"Tipo de pregunta" requerido.');
                     }
 
-                    this.jsonData=JSON.stringify(this.question)
-                    this.jsonObj=JSON.parse(this.jsonData)
+                    switch(this.question.typeSelected){
+                        case "LinearScale":
+                                if(!this.question.LinearScale.lowerValue){
+                                    this.errors.push('"Valor mínimo" requerido.');
+                                }
+                                if(!this.question.LinearScale.upperValue){
+                                    this.errors.push('"Valor máximo" requerido.');
+                                }
+                                if(!this.question.LinearScale.lowerValueDescription){
+                                    this.errors.push('"Etiqueta de valor mínimo" requerido.');
+                                }
+                                if(!this.question.LinearScale.upperValueDescription){
+                                    this.errors.push('"Etiqueta de valor máximo" requerido.');
+                                }
+                            break;
+                        case "Radiobutton":
+                            if(app.question.Radiobutton.items.length == 0){
+                                this.errors.push('No hay "Opciones" de respuesta.');
+                            }                            
+                            break;
+                        case "Checkbox":
+                            if(app.question.Checkbox.items.length == 0){
+                                this.errors.push('No hay "Opciones" de respuesta.');
+                            }                            
+                            break;
+                        case "LongAnswer":
+                            if(!this.question.LongAnswer.placeholder){
+                                this.errors.push('"Placeholder" requerido.');
+                            }  
+                            break;
+
+                    }
+
+                    if(this.errors == 0){
+
+                        event.preventDefault();
+
+                        $.ajax({
+                            type: "POST",
+                            url: `${url}/InsertQuestion`,
+                            data: this.question,
+                            success: function (result, status, xhr) {                            
+                                app.refresh()
+                                app.question.title=""
+                                msgAlert('Pregunta guardada correctamente', 'success')
+
+                                //TODO validar cuando responda con un error
+                                // if (result.includes("Error")) {
+                                //     msgAlert(result, "danger");
+                                // } else {
+                                //     console.log(result)
+                                //     // refresh()
+                                //     // appPerfiles.perfil = {
+                                //     //     nombre: '',
+                                //     //     costo: '',
+                                //     //     grupo: ''
+                                //     // };
+                                //     // appPerfiles.refresh();
+                                // }
+                            },
+                            error: function (xhr, status, error) {
+                                var msg = '<span class="text-bold">' + error + '</span><br/>Estatus: ' + xhr.status + '<br/>Descripción: ' + xhr.statusText;
+                                msgAlert(msg, "danger");
+                            }
+                        });
+                        msgAlert('Guardado', "success");
+                    }                   
+
+                    this.errors.forEach(element => {
+                        msgAlert(element, "error");    
+                    });
+                    
+                    // Imprime el objeto guardado
+                    // var a=this.$children.entries()
+                    // for(i of a){
+                    //     if(i[1].title==this.question.typeSelected)
+                    //         console.log(i[1].title)                            
+                    // }
+
+                    // this.jsonData=JSON.stringify(this.question)
+                    // this.jsonObj=JSON.parse(this.jsonData)
                 },
                 updateLinearScale(value){
                     this.question.LinearScale=value
@@ -244,9 +297,9 @@
                         type: "POST",
                         url: `${url}/DeleteQuestion`,
                         data: { id },
-                        success: function (result, status, xhr) {
-                            console.log('Borrado...')
-                            app.refresh()                            
+                        success: function (result, status, xhr) {                            
+                            app.refresh()  
+                            msgAlert('Pregunta borrada correctamente', 'success')                          
                         },
                         error: function (xhr, status, error) {
                             var msg = '<span class="text-bold">' +
@@ -267,6 +320,26 @@
                 }
             }
         })
+
+        function msgAlert(message, type) {
+            $.notify(message, type);
+            //success,info,warn,error
+        }
+
+        function msgSwal(title, message, type) {
+            swal(
+                {
+                    html: true,
+                    title: title,
+                    text: message,
+                    type: type,
+                    showCancelButton: false,
+                    confirmButtonColor: "#3D1951",
+                    confirmButtonText: "Entendido",
+                    closeOnConfirm: false
+                }
+            );
+        }
     </script>
 
 </body>
