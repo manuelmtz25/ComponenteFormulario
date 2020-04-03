@@ -25,15 +25,14 @@ Vue.component('Checkbox', {
 
     template:`
         <div>
-            <h1 id="h1">{{details.title}}</h1>        
+            <h2>{{details.title}}</h2>
             <div class="mar-btm">
-                <button v-on:click="addItem" class="btn btn-default btn-rounded">AGREGAR ITEM</button>
+                <button v-on:click="addItem" class="btn btn-default btn-rounded">NUEVO ITEM</button>
             </div>       
 
             <div v-for="index in details.counter">
                 <item v-on:change-item="updateItem" v-on:delete-item="dropItem"></item>
-            </div>        
-            {{details.items}}
+            </div>
         </div>
     `
 })

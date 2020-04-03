@@ -17,7 +17,7 @@ Vue.component('LinearScale', {
     },
     template:`
     <div>
-        <h1 id="h1">{{details.title}}</h1>
+        <h2>{{details.title}}</h2>
 
         <div class="row">
             <div class="col-md-6">
@@ -31,9 +31,6 @@ Vue.component('LinearScale', {
                 </div>
                 <div>                    
                     <input v-model="details.lowerValueDescription" v-on:change="updateDataToParent" type="text" class="form-control" placeholder="Etiqueta de valor mínimo">                    
-                </div>
-                <div>
-                    {{details.lowerValue}} : {{details.lowerValueDescription}}
                 </div>
             </div>
             <div class="col-md-6">
@@ -55,10 +52,7 @@ Vue.component('LinearScale', {
                 </div>
                 <div>                    
                     <input v-model="details.upperValueDescription" v-on:change="updateDataToParent" type="text" class="form-control" placeholder="Etiqueta de valor máximo">
-                </div>
-                <div>
-                    {{details.upperValue}} : {{details.upperValueDescription}}
-                </div>
+                </div>                
             </div>
         </div>
     </div>  

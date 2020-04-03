@@ -60,7 +60,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <div class="well">#CONTENIDO                                
+                            <div class="well">
                                 <linear-scale v-show="question.typeSelected==='LinearScale'" v-on:change-parent-linearscale="updateLinearScale"></linear-scale>
                                 <radiobutton v-show="question.typeSelected==='Radiobutton'" v-on:change-parent-radio="updateRadiobutton"></radiobutton>
                                 <checkbox v-show="question.typeSelected==='Checkbox'" v-on:change-parent-checkbox="updateCheckbox"></checkbox>
@@ -73,51 +73,50 @@
                         </div>
                     </div>
                 </div>
-            </div>  
-
-            <p>{{ information }}</p>          
-            <p>{{ jsonData }}</p> 
-
-            <div class="row">
-                <div class="list-group">
-                    <li v-for="item in result" class="list-group-item">
-                        <div>
-                            <span class="pull-right text-bold">
-                                <button v-on:click="removeElement(item.Id)" class="btn btn-dark btn-xs btn-rounded">                            
-                                    BORRAR
-                                </button>
-                            </span>
-                            
-                            <div>
-                                <h5 class="list-group-item-heading">{{item.Title}} <span class="text-thin">({{item.Type}})</span></h5>
-                                <em v-if="item.Required==true">-Obligatoria-</em>
-                            </div>
-                            <div v-if="item.Type=='LinearScale'">
-                                <ul>
-                                    <li>LowerValue: {{item.LinearScale.LowerValue}}</li>
-                                    <li>UpperValue: {{item.LinearScale.UpperValue}}</li>
-                                    <li>LowerValueDescription: {{item.LinearScale.LowerValueDescription}}</li>
-                                    <li>UpperValueDescription: {{item.LinearScale.UpperValueDescription}}</li>
-                                </ul>                                
-                            </div>
-                            <div v-if="item.Type=='Radiobutton'">
-                                <ul>
-                                    <li>Items: {{item.Radiobutton.Items}}</li>
-                                </ul>                                
-                            </div>
-                            <div v-if="item.Type=='Checkbox'">
-                                <ul>
-                                    <li>Items: {{item.Checkbox.Items}}</li>
-                                </ul>                                
-                            </div>
-                            <div v-if="item.Type=='LongAnswer'">
-                                <ul>
-                                    <li>Placeholder: {{item.LongAnswer.Placeholder}}</li>
-                                </ul>                                
-                            </div>
-                        </div>
+            </div>
             
-                    </li>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="list-group">
+                        <li v-for="item in result" class="list-group-item bg-light">
+                            <div>
+                                <span class="pull-right text-bold">
+                                    <button v-on:click="removeElement(item.Id)" class="btn btn-dark btn-xs btn-rounded">                            
+                                        BORRAR
+                                    </button>
+                                </span>
+                                
+                                <div>
+                                    <h5 class="list-group-item-heading">{{item.Title}} <span class="text-thin">({{item.Type}})</span></h5>
+                                    <em v-if="item.Required==true">-Obligatoria-</em>
+                                </div>
+                                <div v-if="item.Type=='LinearScale'">
+                                    <ul>
+                                        <li>LowerValue: {{item.LinearScale.LowerValue}}</li>
+                                        <li>UpperValue: {{item.LinearScale.UpperValue}}</li>
+                                        <li>LowerValueDescription: {{item.LinearScale.LowerValueDescription}}</li>
+                                        <li>UpperValueDescription: {{item.LinearScale.UpperValueDescription}}</li>
+                                    </ul>                                
+                                </div>
+                                <div v-if="item.Type=='Radiobutton'">
+                                    <ul>
+                                        <li>Items: {{item.Radiobutton.Items}}</li>
+                                    </ul>                                
+                                </div>
+                                <div v-if="item.Type=='Checkbox'">
+                                    <ul>
+                                        <li>Items: {{item.Checkbox.Items}}</li>
+                                    </ul>                                
+                                </div>
+                                <div v-if="item.Type=='LongAnswer'">
+                                    <ul>
+                                        <li>Placeholder: {{item.LongAnswer.Placeholder}}</li>
+                                    </ul>                                
+                                </div>
+                            </div>
+                
+                        </li>
+                    </div>
                 </div>
             </div>        
         </div>
@@ -179,7 +178,7 @@
 
             methods:{
                 submitData(event){
-                    
+                    //TODO validar que los datos estén llenos
                     event.preventDefault();
 
                     $.ajax({
@@ -191,6 +190,7 @@
                             console.log('Guardado...')
                             app.refresh()
 
+                            //TODO validar cuando responda con un error
                             // if (result.includes("Error")) {
                             //     msgAlert(result, "danger");
                             // } else {
