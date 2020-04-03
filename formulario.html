@@ -80,40 +80,39 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="list-group">
-                        <li v-for="item in result" class="list-group-item bg-light">
+                        <li v-for="item in result" class="list-group-item bg-light">                            
+                            <!-- Id: {{item.Id}} -->
                             <div>
                                 <span class="pull-right text-bold">
-                                    <button v-on:click="removeElement(item.Id)" class="btn btn-dark btn-xs btn-rounded">                            
+                                    <button v-on:click="removeElement(item.Id)" class="btn btn-text-rojo btn-rounded">                            
                                         BORRAR
                                     </button>
                                 </span>
                                 
-                                <div>
-                                    <h5 class="list-group-item-heading">{{item.Title}} <span class="text-thin">({{item.Type}})</span></h5>
-                                    <em v-if="item.Required==true">-Obligatoria-</em>
+                                <div>                                    
+                                    <h5>{{item.Title}}</h5>
+                                    <span v-if="item.Required==true" class="text-sm text-azul">-Obligatoria-</span>
+                                    <span v-else class="text-sm">-Opcional-</span>
                                 </div>
+                                <br>
                                 <div v-if="item.Type=='LinearScale'">
-                                    <ul>
-                                        <li>LowerValue: {{item.LinearScale.LowerValue}}</li>
-                                        <li>UpperValue: {{item.LinearScale.UpperValue}}</li>
-                                        <li>LowerValueDescription: {{item.LinearScale.LowerValueDescription}}</li>
-                                        <li>UpperValueDescription: {{item.LinearScale.UpperValueDescription}}</li>
-                                    </ul>                                
+                                    <div class="mar-btm"><span class="label label-mint">{{item.LinearScale.LowerValue}}</span> {{item.LinearScale.LowerValueDescription}}</div>                                    
+					                <div class="mar-btm"><span class="label label-dark">{{item.LinearScale.UpperValue}}</span> {{item.LinearScale.UpperValueDescription}}</div>                                    
                                 </div>
                                 <div v-if="item.Type=='Radiobutton'">
-                                    <ul>
-                                        <li>Items: {{item.Radiobutton.Items}}</li>
-                                    </ul>                                
+                                    <div class="radio" v-for="i in item.Radiobutton.Items">
+                                        <input class="magic-radio" type="radio" disabled>
+                                        <label class="text-dark">{{i}}</label>
+                                    </div>                                    
                                 </div>
-                                <div v-if="item.Type=='Checkbox'">
-                                    <ul>
-                                        <li>Items: {{item.Checkbox.Items}}</li>
-                                    </ul>                                
+                                <div v-if="item.Type=='Checkbox'">                                    
+                                    <div class="radio" v-for="i in item.Checkbox.Items">
+                                        <input class="magic-checkbox" type="checkbox" disabled>
+                                        <label>{{i}}</label>
+                                    </div>                              
                                 </div>
-                                <div v-if="item.Type=='LongAnswer'">
-                                    <ul>
-                                        <li>Placeholder: {{item.LongAnswer.Placeholder}}</li>
-                                    </ul>                                
+                                <div v-if="item.Type=='LongAnswer'">                                    
+                                    <input type="text" class="form-control" :placeholder="item.LongAnswer.Placeholder" style="pointer-events: none">                                    
                                 </div>
                             </div>
                 
